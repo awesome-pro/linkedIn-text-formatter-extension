@@ -7,7 +7,6 @@ const FormatterToolbar = () => {
   const handleFormat = (format: FormatType) => {
     setActiveFormat(format);
     window.postMessage({ type: 'FORMAT_TEXT', format }, '*');
-    setTimeout(() => setActiveFormat(null), 200);
   };
 
   const buttons: { format: FormatType; icon: string }[] = [
@@ -34,15 +33,17 @@ const FormatterToolbar = () => {
       }}
     >
       
-      <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', width: '100%' }}>
         {buttons.map(({ format, icon }) => (
           <button
             key={format}
             onClick={() => handleFormat(format)}
             title={format}
             style={{
+              flex: 1,
               display: 'inline-flex',
               alignItems: 'center',
+              justifyContent: 'center',
               gap: '6px',
               padding: '6px 12px',
               backgroundColor: activeFormat === format ? '#2563eb' : '#ffffff',
@@ -55,18 +56,6 @@ const FormatterToolbar = () => {
               transition: 'all 0.2s ease',
               outline: 'none',
               boxShadow: activeFormat === format ? '0 1px 2px rgba(0, 0, 0, 0.1)' : 'none',
-            }}
-            onMouseEnter={(e) => {
-              if (activeFormat !== format) {
-                e.currentTarget.style.backgroundColor = '#eff6ff';
-                e.currentTarget.style.borderColor = '#93c5fd';
-              }
-            }}
-            onMouseLeave={(e) => {
-              if (activeFormat !== format) {
-                e.currentTarget.style.backgroundColor = '#ffffff';
-                e.currentTarget.style.borderColor = '#bfdbfe';
-              }
             }}
           >
             <span>{icon}</span>

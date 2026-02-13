@@ -3,6 +3,8 @@ import { formatText, FormatType } from '@/lib/textFormatter';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { Check, Copy } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import logo from '@/assets/logo.png';
 
 function App() {
   const [inputText, setInputText] = useState('');
@@ -29,14 +31,17 @@ function App() {
   };
 
   return (
-    <div className='w-[380px] p-6 bg-background'>
-      <div className="mb-6">
-        <h1 className='text-2xl font-bold text-foreground mb-1'>
-          Text Formatter
-        </h1>
-        <p className='text-sm text-muted-foreground'>
-          Transform your text with Unicode styles
-        </p>
+    <div className='w-[380px] p-6 bg-background rounded-xl border border-border'>
+      <div className="mb-6 flex items-center gap-3">
+        <img src={logo} alt="Text Formatter" className='w-12 h-12' />
+        <div>
+          <h1 className='text-xl font-bold text-foreground mb-1'>
+            Text Formatter
+          </h1>
+          <p className='text-xs text-muted-foreground'>
+            Transform your text with Unicode styles
+          </p>
+        </div>
       </div>
 
       <div className="mb-4">
@@ -69,11 +74,11 @@ function App() {
           <Textarea
             value={formattedText}
             readOnly
-            className="resize-none h-20 bg-muted/50"
+            className="resize-none h-20"
           />
           <Button
             onClick={copyToClipboard}
-            className='w-full'
+            className={cn("w-full", copied && "bg-teal-500 hover:bg-teal-600")}
             size="sm"
           >
             {copied ? (
